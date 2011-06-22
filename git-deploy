@@ -1,0 +1,10 @@
+#!/usr/local/bin/bash
+
+if [ $# -lt 1 ] ; then
+  echo "Usage: $0 branch_to_merge"
+  exit 0
+fi
+
+git status || exit 0
+
+git checkout master && git pull && git checkout $1 && git rebase master && git checkout master && git merge $1 && git push
