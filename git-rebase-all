@@ -3,6 +3,6 @@
 git status || exit 0
 cd $(git rev-parse --show-toplevel) || exit 0
 git checkout master || exit 0
-for i in `git branch | grep -v 'z_' | grep -v \`cat .git/config | grep branch | sed 's/^.*["]\(.*\)["].*$/\1/' | perl -e 'my @s; while (<>) {push @s, $_} print join "|",@s;'\``; do git checkout $i && git rebase master || exit 0; done
+for i in `git branch | grep -v 'z_' | egrep -v \`cat .git/config | grep branch | sed 's/^.*["]\(.*\)["].*$/\1/' | perl -e 'my @s; while (<>) {chomp;push @s, $_} print join "|",@s;'\``; do git checkout $i && git rebase master || exit 0; done
 
 git checkout master
